@@ -64,6 +64,12 @@ namespace MyTestApp.ViewModels
         private MessageType _currentMessageType;
 
         [ObservableProperty]
+        private string _typeColor = "#0078D4";
+
+        [ObservableProperty]
+        private string _icon = "fa-info-circle";
+
+        [ObservableProperty]
         private bool _isConfirmDialog;
 
         [ObservableProperty]
@@ -105,6 +111,10 @@ namespace MyTestApp.ViewModels
             Title = message.Title;
             Message = message.Message;
             CurrentMessageType = message.Type;
+            
+            // 根据消息类型设置颜色和图标
+            (TypeColor, Icon) = GetTypeColorAndIcon(message.Type);
+            
             IsConfirmDialog = false;
             IsInputDialog = false;
             ShowCloseButton = true;
@@ -119,6 +129,10 @@ namespace MyTestApp.ViewModels
             Title = message.Title;
             Message = message.Message;
             CurrentMessageType = message.Type;
+            
+            // 根据消息类型设置颜色和图标
+            (TypeColor, Icon) = GetTypeColorAndIcon(message.Type);
+            
             IsConfirmDialog = true;
             IsInputDialog = false;
             ShowCloseButton = true;
@@ -134,6 +148,10 @@ namespace MyTestApp.ViewModels
             Title = message.Title;
             Message = message.Message;
             CurrentMessageType = MessageType.Information;
+            
+            // 根据消息类型设置颜色和图标
+            (TypeColor, Icon) = GetTypeColorAndIcon(MessageType.Information);
+            
             InputText = message.DefaultValue;
             IsInputDialog = true;
             IsConfirmDialog = false;
@@ -253,6 +271,18 @@ namespace MyTestApp.ViewModels
         public void ConfirmCommand()
         {
             ConfirmMessage();
+        }
+
+        private (string Color, string Icon) GetTypeColorAndIcon(MessageType type)
+        {
+            return type switch
+            {
+                MessageType.Success => ("#107C10", "fa-check-circle"),
+                MessageType.Warning => ("#FF8C00", "fa-exclamation-triangle"),
+                MessageType.Error => ("#D13438", "fa-times-circle"),
+                MessageType.Information => ("#0078D4", "fa-info-circle"),
+                _ => ("#0078D4", "fa-info-circle")
+            };
         }
 
         [RelayCommand]

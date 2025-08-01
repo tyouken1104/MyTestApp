@@ -8,6 +8,10 @@ using System;
 using System.Timers;
 using Avalonia.Platform;
 using MyTestApp.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
+using Avalonia.Media;
+using System;
+using Avalonia.Animation;
 
 namespace MyTestApp;
 
@@ -362,5 +366,44 @@ public partial class MainWindow : Window
             WindowEdge.NorthWest or WindowEdge.SouthEast => new Cursor(StandardCursorType.BottomRightCorner),
             _ => Cursor.Default
         };
+    }
+    
+    private void ToastBorder_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        // 获取DataContext中的ViewModel并调用CloseCommand
+        if (DataContext is MainWindowViewModel viewModel)
+        {
+            // 由于这是在ItemsControl中的DataTemplate，我们需要找到对应的DataContext
+            if (sender is Border border && border.DataContext is ToastMessage toastMessage)
+            {
+                // 创建RemoveToastMessage并发送给MessageViewModel处理
+                var removeMessage = new RemoveToastMessage(toastMessage);
+                WeakReferenceMessenger.Default.Send(removeMessage);
+            }
+        }
+    }
+    
+    private void ToastBorder_PointerEntered(object? sender, PointerEventArgs e)
+    {
+        if (sender is Border border)
+        {
+            // 创建轻微放大的动画效果
+            var scaleTransform = border.RenderTransform as ScaleTransform ?? new ScaleTransform(1, 1);
+            scaleTransform.ScaleX = 1.05;
+            scaleTransform.ScaleY = 1.05;
+            border.RenderTransform = scaleTransform;
+        }
+    }
+
+    private void ToastBorder_PointerExited(object? sender, PointerEventArgs e)
+    {
+        if (sender is Border border)
+        {
+            // 恢复正常大小
+            var scaleTransform = border.RenderTransform as ScaleTransform ?? new ScaleTransform(1, 1);
+            scaleTransform.ScaleX = 1;
+            scaleTransform.ScaleY = 1;
+            border.RenderTransform = scaleTransform;
+        }
     }
 }

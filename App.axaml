@@ -20,6 +20,7 @@
                     <Color x:Key="PrimaryColor">#FF0EA5E9</Color>
                     <Color x:Key="PrimaryHoverColor">#FF38BDF8</Color>
                     <Color x:Key="PrimaryPressedColor">#FF0284C7</Color>
+                    <Color x:Key="PrimaryDarkColor">#FF0284C7</Color>  <!-- 用于消息弹窗Header，比PrimaryColor稍暗 -->
                     
                     <!-- 背景色 -->
                     <Color x:Key="BackgroundColor">#FFFEFEFE</Color>
@@ -44,6 +45,7 @@
                     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
                     <SolidColorBrush x:Key="PrimaryHoverBrush" Color="{StaticResource PrimaryHoverColor}"/>
                     <SolidColorBrush x:Key="PrimaryPressedBrush" Color="{StaticResource PrimaryPressedColor}"/>
+                    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
                     <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
                     <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
                     <SolidColorBrush x:Key="SurfaceVariantBrush" Color="{StaticResource SurfaceVariantColor}"/>
@@ -65,6 +67,7 @@
                     <Color x:Key="PrimaryColor">#FF8B5CF6</Color>
                     <Color x:Key="PrimaryHoverColor">#FFA78BFA</Color>
                     <Color x:Key="PrimaryPressedColor">#FF7C3AED</Color>
+                    <Color x:Key="PrimaryDarkColor">#FF5B21B6</Color>  <!-- 用于消息弹窗Header，比之前的PrimaryDarkColor更暗 -->
                     
                     <!-- 背景色 -->
                     <Color x:Key="BackgroundColor">#FF0F172A</Color>
@@ -89,6 +92,7 @@
                     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
                     <SolidColorBrush x:Key="PrimaryHoverBrush" Color="{StaticResource PrimaryHoverColor}"/>
                     <SolidColorBrush x:Key="PrimaryPressedBrush" Color="{StaticResource PrimaryPressedColor}"/>
+                    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
                     <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
                     <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
                     <SolidColorBrush x:Key="SurfaceVariantBrush" Color="{StaticResource SurfaceVariantColor}"/>
