@@ -1,0 +1,666 @@
+<Window
+    x:Class="MyTestApp.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="https://github.com/projektanker/icons.avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:MyTestApp.ViewModels"
+    xmlns:MyTestApp="using:MyTestApp.Converters"
+    xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+    Title="MyTestApp"
+    Width="1200"
+    Height="800"
+    MinWidth="800"
+    MinHeight="600"
+    d:DesignHeight="800"
+    d:DesignWidth="1200"
+    x:DataType="{x:Type vm:MainWindowViewModel}"
+    Background="Transparent"
+    CanResize="True"
+    Icon="avares://MyTestApp/Assets/app.ico"
+    SystemDecorations="Full"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Window.Styles>
+        <!--  窗口样式  -->
+        <Style Selector="Window">
+            <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
+        </Style>
+        
+        <!--  现代化窗口边框  -->
+        <Style Selector="Border.WindowBorder">
+            <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="BoxShadow" Value="0 8 32 rgba(0,0,0,0.12)" />
+        </Style>
+        
+        <!--  现代化标题栏  -->
+        <Style Selector="Grid.TitleBar">
+            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        </Style>
+        
+        <!--  状态栏样式  -->
+        <Style Selector="Border.StatusBar">
+            <Setter Property="Background" Value="{DynamicResource SurfaceVariantBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="0,1,0,0" />
+        </Style>
+        
+        <!--  主内容区域  -->
+        <Style Selector="Border.ContentArea">
+            <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
+        </Style>
+        
+        <!--  二级菜单容器样式  -->
+        <Style Selector="Border.SubMenuContainer">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="0,0,1,0" />
+            <Setter Property="Margin" Value="0" />
+        </Style>
+    </Window.Styles>
+    <Border
+        x:Name="WindowBorder"
+        Classes="WindowBorder"
+        ClipToBounds="True">
+        <Grid ClipToBounds="True">
+            <DockPanel x:Name="MainContentPanel" ClipToBounds="True">
+                <!--  Header区域  -->
+                <Grid
+                    Height="50"
+                    Classes="TitleBar"
+                    ClipToBounds="True"
+                    DockPanel.Dock="Top"
+                    PointerPressed="OnHeaderPointerPressed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  左侧图标和程序名称  -->
+                    <StackPanel
+                        Grid.Column="0"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Image
+                            Width="32"
+                            Height="32"
+                            Margin="0,0,10,0"
+                            Source="avares://MyTestApp/Assets/app.ico" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="MyTestApp" />
+                    </StackPanel>
+
+                    <!--  中间空白区域  -->
+                    <Grid Grid.Column="1" />
+
+                    <!--  右侧按钮区域  -->
+                    <StackPanel
+                        Grid.Column="2"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="40"
+                            Height="30"
+                            Margin="0,0,5,0"
+                            Classes="HeaderButton"
+                            ToolTip.Tip="通知">
+                            <i:Icon FontSize="14" Value="fa-bell" Foreground="White" />
+                        </Button>
+                        <Button
+                            Width="40"
+                            Height="30"
+                            Margin="0,0,16,0"
+                            Classes="HeaderButton"
+                            ToolTip.Tip="用户">
+                            <i:Icon FontSize="14" Value="fa-user" Foreground="White" />
+                        </Button>
+                        <Button
+                            x:Name="MinimizeButton"
+                            Width="40"
+                            Height="30"
+                            Margin="0,0,5,0"
+                            Classes="HeaderButton"
+                            ToolTip.Tip="最小化">
+                            <i:Icon FontSize="14" Value="fa-window-minimize" />
+                        </Button>
+                        <Button
+                            x:Name="MaximizeButton"
+                            Width="40"
+                            Height="30"
+                            Margin="0,0,5,0"
+                            Classes="HeaderButton"
+                            ToolTip.Tip="最大化">
+                            <i:Icon FontSize="14" Value="fa-window-maximize" />
+                        </Button>
+                        <Button
+                            x:Name="CloseButton"
+                            Width="40"
+                            Height="30"
+                            Classes="HeaderButton Close"
+                            ToolTip.Tip="关闭">
+                            <i:Icon FontSize="14" Value="fa-window-close" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <!--  状态栏  -->
+                <Border
+                    Height="25"
+                    Classes="StatusBar"
+                    ClipToBounds="True"
+                    DockPanel.Dock="Bottom">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="{DynamicResource ForegroundSecondaryBrush}"
+                            Text="就绪" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="{DynamicResource ForegroundSecondaryBrush}"
+                            Text="2024-01-01 12:00:00" />
+                    </Grid>
+                </Border>
+
+                <!--  主要内容区域  -->
+                <DockPanel>
+                    <!--  左侧菜单区域（包含图标和二级菜单）  -->
+                    <Border
+                        Name="MenuPanel"
+                        Width="50"
+                        Classes="MenuContainer"
+                        ClipToBounds="True"
+                        DockPanel.Dock="Left">
+                        <Grid Name="MenuGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="200" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  图标菜单列  -->
+                            <Border Grid.Column="0" Classes="MenuContainer">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!--  展开/收缩按钮  -->
+                                    <Button
+                                        Name="ToggleMenuButton"
+                                        Grid.Row="0"
+                                        Margin="0,0,0,10"
+                                        Classes="IconMenuButton"
+                                        ToolTip.Tip="展开菜单">
+                                        <i:Icon
+                                            Name="ToggleIcon"
+                                            FontSize="18"
+                                            Value="fa-bars" />
+                                    </Button>
+
+                                    <!--  图标菜单  -->
+                                    <StackPanel Grid.Row="1">
+                                        <Button
+                                            Name="SystemIcon"
+                                            Classes="IconMenuButton"
+                                            ToolTip.Tip="系统管理">
+                                            <i:Icon FontSize="18" Value="fa-cogs" />
+                                        </Button>
+                                        <Button
+                                            Name="BusinessIcon"
+                                            Classes="IconMenuButton"
+                                            ToolTip.Tip="业务管理">
+                                            <i:Icon FontSize="18" Value="fa-chart-line" />
+                                        </Button>
+                                        <Button
+                                            Name="ThemeIcon"
+                                            Classes="IconMenuButton"
+                                            ToolTip.Tip="主题设置">
+                                            <i:Icon FontSize="18" Value="fa-palette" />
+                                        </Button>
+                                        <Button
+                                            Name="MessageTestIcon"
+                                            Classes="IconMenuButton"
+                                            ToolTip.Tip="消息测试">
+                                            <i:Icon FontSize="18" Value="fa-comment" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!--  二级菜单区域  -->
+                            <Border
+                                Name="SubMenuPanel"
+                                Grid.Column="1"
+                                Width="200"
+                                Classes="SubMenuContainer"
+                                IsVisible="False">
+                                <ScrollViewer>
+                                    <StackPanel>
+                                        <!--  系统管理子菜单  -->
+                                        <StackPanel Name="SystemSubMenu" IsVisible="False">
+                                            <TextBlock
+                                                Margin="15,15,15,10"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Foreground="{DynamicResource PrimaryBrush}"
+                                                Text="系统管理" />
+                                            <Button Classes="SubMenuButton">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-user" />
+                                                    <TextBlock Text="用户管理" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Classes="SubMenuButton">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-user-shield" />
+                                                    <TextBlock Text="角色管理" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Classes="SubMenuButton">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-cog" />
+                                                    <TextBlock Text="系统设置" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+
+                                        <!--  业务管理子菜单  -->
+                                        <StackPanel Name="BusinessSubMenu" IsVisible="False">
+                                            <TextBlock
+                                                Margin="15,15,15,10"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Foreground="{DynamicResource PrimaryBrush}"
+                                                Text="业务管理" />
+                                            <Button Classes="SubMenuButton">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-clipboard-list" />
+                                                    <TextBlock Text="订单管理" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Classes="SubMenuButton">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-users" />
+                                                    <TextBlock Text="客户管理" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Classes="SubMenuButton">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-chart-bar" />
+                                                    <TextBlock Text="报表统计" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+
+                                        <!--  主题设置子菜单  -->
+                                        <StackPanel Name="ThemeSubMenu" IsVisible="False">
+                                            <TextBlock
+                                                Margin="15,15,15,10"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Foreground="{DynamicResource PrimaryBrush}"
+                                                Text="主题设置" />
+                                            <ComboBox
+                                                Width="150"
+                                                Margin="15,5"
+                                                ItemsSource="{Binding Themes}"
+                                                SelectedItem="{Binding SelectedTheme}" />
+                                            <Button
+                                                Width="150"
+                                                Margin="15,5"
+                                                Command="{Binding ToggleThemeCommand}">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-sync-alt" />
+                                                    <TextBlock Text="切换主题" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+
+                                        <!--  消息测试子菜单  -->
+                                        <StackPanel Name="MessageTestSubMenu" IsVisible="False">
+                                            <TextBlock
+                                                Margin="15,15,15,10"
+                                                FontSize="16"
+                                                FontWeight="Bold"
+                                                Text="消息服务测试" />
+                                            <Button
+                                                Classes="SubMenuButton"
+                                                Command="{Binding ShowWelcomeCommand}">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-home" />
+                                                    <TextBlock Text="欢迎页面" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button
+                                                Classes="SubMenuButton"
+                                                Command="{Binding ShowMessageTestCommand}">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <i:Icon FontSize="14" Value="fa-comment" />
+                                                    <TextBlock Text="消息测试" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!--  右侧业务画面区域  -->
+                    <Border
+                        Padding="10"
+                        Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                        ClipToBounds="True">
+                        <ContentControl Content="{Binding CurrentContent}" />
+                    </Border>
+                </DockPanel>
+            </DockPanel>
+
+            <!--  消息弹窗区域 - 现代化设计  -->
+            <dialogHost:DialogHost
+                x:Name="MessageDialogHost"
+                IsOpen="{Binding MessageViewModel.IsMessageVisible}"
+                ZIndex="1000"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                OverlayBackground="#80000000"
+                DialogMargin="20"
+                KeyDown="MessageDialogHost_KeyDown">
+                <dialogHost:DialogHost.DialogContent>
+                    <Border
+                        Width="480"
+                        MaxHeight="520"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource SystemControlBackgroundBaseHighBrush}"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                        BorderThickness="1"
+                        CornerRadius="12"
+                        BoxShadow="0 20 60 0 #40000000">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            
+                            <!--  标题区域 - 渐变背景  -->
+                            <Border
+                                Grid.Row="0"
+                                Padding="24,20"
+                                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                                CornerRadius="12,12,0,0"
+                                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        FontSize="20"
+                                        FontWeight="SemiBold"
+                                        Text="{Binding MessageViewModel.Title}"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        Width="32"
+                                        Height="32"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Command="{Binding MessageViewModel.CloseCommand}"
+                                        IsVisible="True"
+                                        CornerRadius="16">
+                                        <i:Icon 
+                                            FontSize="16" 
+                                            Value="fa-times"
+                                            Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+
+                            <!--  消息内容区域 - 现代化样式  -->
+                            <Border 
+                                Grid.Row="1" 
+                                Padding="24,24"
+                                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
+                                <Grid RowDefinitions="*,Auto">
+                                    <ScrollViewer
+                                        Grid.Row="0"
+                                        MaxHeight="280"
+                                        HorizontalScrollBarVisibility="Disabled"
+                                        VerticalScrollBarVisibility="Auto">
+                                        <TextBlock
+                                            Margin="0"
+                                            FontSize="16"
+                                            LineHeight="26"
+                                            Text="{Binding MessageViewModel.Message}"
+                                            TextWrapping="Wrap"
+                                            Foreground="{DynamicResource SystemControlForegroundBaseMediumHighBrush}" />
+                                    </ScrollViewer>
+                                    <TextBox
+                                        x:Name="InputTextBox"
+                                        Grid.Row="1"
+                                        Height="44"
+                                        Margin="0,20,0,0"
+                                        Padding="12,8"
+                                        FontSize="15"
+                                        BorderThickness="1"
+                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                        Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                                        CornerRadius="8"
+                                        IsVisible="{Binding MessageViewModel.ShowInput}"
+                                        Text="{Binding MessageViewModel.InputText}"
+                                        Watermark="请输入内容..."
+                                        KeyDown="InputTextBox_KeyDown" />
+                                </Grid>
+                            </Border>
+                            <!--  分隔线  -->
+                            <Border
+                                Grid.Row="2"
+                                Height="1"
+                                Background="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                HorizontalAlignment="Stretch" />
+
+                            <!--  按钮区域 - 现代化按钮  -->
+                            <Border
+                                Grid.Row="3"
+                                Padding="24,20"
+                                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                                CornerRadius="0,0,12,12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button
+                                        Grid.Column="0"
+                                        Width="110"
+                                        Height="40"
+                                        Margin="0,0,12,0"
+                                        HorizontalAlignment="Right"
+                                        Background="Transparent"
+                                        BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                        BorderThickness="1"
+                                        Command="{Binding MessageViewModel.CancelCommand}"
+                                        CornerRadius="8"
+                                        IsVisible="{Binding MessageViewModel.ShowCancelButton}">
+                                        <TextBlock 
+                                            Text="取消" 
+                                            FontSize="15"
+                                            FontWeight="Medium"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                                    </Button>
+                                    <Button
+                                        x:Name="ConfirmButton"
+                                        Grid.Column="1"
+                                        Width="110"
+                                        Height="40"
+                                        HorizontalAlignment="Right"
+                                        Background="{DynamicResource SystemControlAccentBrush}"
+                                        BorderBrush="{DynamicResource SystemControlAccentBrush}"
+                                        BorderThickness="1"
+                                        Command="{Binding MessageViewModel.ConfirmCommand}"
+                                        CornerRadius="8"
+                                        IsDefault="True">
+                                        <TextBlock 
+                                            Text="{Binding MessageViewModel.ConfirmButtonText}" 
+                                            FontSize="15"
+                                            FontWeight="Medium"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Foreground="White" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </dialogHost:DialogHost.DialogContent>
+            </dialogHost:DialogHost>
+
+            <!--  Toast消息区域  -->
+            <ItemsControl x:Name="ToastOverlay" 
+                         ItemsSource="{Binding MessageViewModel.ToastMessages}" 
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top"
+                         Margin="0,80,20,0"
+                         ZIndex="999">
+                <ItemsControl.Resources>
+                    <MyTestApp:ThemeAwareToastBackgroundConverter x:Key="ThemeAwareToastBackgroundConverter"/>
+                    <MyTestApp:ToastBackgroundConverter x:Key="ToastBackgroundConverter"/>
+                    <MyTestApp:ToastBackgroundDarkConverter x:Key="ToastBackgroundDarkConverter"/>
+                    <SolidColorBrush x:Key="ToastSuccessBackground" Color="#E8F5E8"/>
+                    <SolidColorBrush x:Key="ToastWarningBackground" Color="#FFF4E8"/>
+                    <SolidColorBrush x:Key="ToastErrorBackground" Color="#FEE7E7"/>
+                    <SolidColorBrush x:Key="ToastInfoBackground" Color="#E8F4FD"/>
+                    <SolidColorBrush x:Key="ToastSuccessBackgroundDark" Color="#0A3410"/>
+                    <SolidColorBrush x:Key="ToastWarningBackgroundDark" Color="#4A2B00"/>
+                    <SolidColorBrush x:Key="ToastErrorBackgroundDark" Color="#4A0F0F"/>
+                    <SolidColorBrush x:Key="ToastInfoBackgroundDark" Color="#0A2A4A"/>
+                </ItemsControl.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Spacing="10"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button
+                            Width="300"
+                            MinHeight="50"
+                            Classes="ToastButton"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Command="{Binding CloseCommand}"
+                             Background="{Binding TypeColor, Converter={StaticResource ThemeAwareToastBackgroundConverter}}"
+                             BorderBrush="{Binding TypeColor}"
+                             BorderThickness="1"
+                             CornerRadius="8">
+                            <Button.Styles>
+                                <Style Selector="Button[IsVisible=True]">
+                                    <Style.Animations>
+                                        <Animation Duration="0:0:0.3" FillMode="Both">
+                                            <KeyFrame Cue="0%">
+                                                <Setter Property="Opacity" Value="0"/>
+                                                <Setter Property="Margin" Value="0,0,-100,0"/>
+                                            </KeyFrame>
+                                            <KeyFrame Cue="100%">
+                                                <Setter Property="Opacity" Value="1"/>
+                                                <Setter Property="Margin" Value="0"/>
+                                            </KeyFrame>
+                                        </Animation>
+                                    </Style.Animations>
+                                </Style>
+                                <Style Selector="Button">
+                                    <Setter Property="Background" Value="{Binding TypeColor, Converter={StaticResource ThemeAwareToastBackgroundConverter}}" />
+                                </Style>
+                                <Style Selector="Button:pointerover">
+                                    <Setter Property="Background" Value="{Binding TypeColor, Converter={StaticResource ThemeAwareToastBackgroundConverter}}" />
+                                </Style>
+                            </Button.Styles>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Grid.Column="0"
+                                    Width="4"
+                                    Background="{Binding TypeColor}" />
+                                <Grid Grid.Column="1" Margin="10,5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Text="{Binding Title}"
+                                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                                        <Button
+                                            Grid.Column="1"
+                                            Width="24"
+                                            Height="24"
+                                            Margin="5,0,0,0"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Command="{Binding CloseCommand}"
+                                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}">
+                                            <i:Icon FontSize="14" Value="fa-times"/>
+                                        </Button>
+                                    </Grid>
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Margin="0,5,0,0"
+                                        FontSize="12"
+                                        Text="{Binding Message}"
+                                        TextWrapping="Wrap"
+                                        Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                                </Grid>
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Grid>
+    </Border>
+</Window>

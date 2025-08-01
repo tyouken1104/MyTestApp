@@ -1,0 +1,202 @@
+<UserControl x:Class="MyTestApp.Views.MessageTestView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MyTestApp.ViewModels"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d"
+             x:DataType="vm:MessageTestViewModel">
+
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="20">
+            <TextBlock
+                FontSize="24"
+                FontWeight="Bold"
+                Text="消息服务测试"
+                Foreground="{DynamicResource PrimaryBrush}" />
+
+            <TextBlock
+                FontSize="16"
+                Text="点击下方按钮测试不同的消息功能："
+                TextWrapping="Wrap"
+                Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+
+            <Border
+                Classes="Card">
+                <StackPanel Spacing="15">
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource PrimaryBrush}"
+                        Text="Toast通知测试" />
+                    
+                    <WrapPanel HorizontalAlignment="Left" ItemSpacing="10">
+                        <Button
+                            Width="150"
+                            Command="{Binding ShowToastInfoCommand}"
+                            Content="信息Toast" />
+                        <Button
+                            Width="150"
+                            Classes="Warning"
+                            Command="{Binding ShowToastWarningCommand}"
+                            Content="警告Toast" />
+                        <Button
+                            Width="150"
+                            Classes="Danger"
+                            Command="{Binding ShowToastErrorCommand}"
+                            Content="错误Toast" />
+                        <Button
+                            Width="150"
+                            Classes="Success"
+                            Command="{Binding ShowToastCommand}"
+                            Content="成功Toast" />
+                    </WrapPanel>
+
+                    <Button
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        Classes="Secondary"
+                        Command="{Binding ShowMultipleToastsCommand}"
+                        Content="批量Toast测试" />
+
+                    <Separator />
+
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="对话框测试" />
+
+                    <WrapPanel HorizontalAlignment="Left" ItemSpacing="10">
+                        <Button
+                            Width="150"
+                            Command="{Binding ShowMessageCommand}"
+                            Content="消息弹窗" />
+                        <Button
+                            Width="150"
+                            Command="{Binding ShowConfirmCommand}"
+                            Content="确认对话框" />
+                        <Button
+                            Width="150"
+                            Command="{Binding ShowInputCommand}"
+                            Content="输入对话框" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <Border
+                Classes="Panel"
+                CornerRadius="12">
+                <StackPanel>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Text="Toast通知说明"
+                        Foreground="{DynamicResource PrimaryBrush}" />
+                    <TextBlock
+                    FontSize="14"
+                    Text="• 右上角显示，支持多个通知依次排列"
+                    TextWrapping="Wrap"
+                    Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 四种类型：成功(绿色)、警告(橙色)、错误(红色)、信息(蓝色)"
+                    TextWrapping="Wrap"
+                    Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 自动3秒后消失，可手动点击关闭"
+                    TextWrapping="Wrap"
+                    Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 批量测试：可一次性触发多个通知"
+                    TextWrapping="Wrap"
+                    Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                    
+                    <Separator Margin="0,15,0,10" />
+                    
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Text="对话框说明" />
+                    <TextBlock
+                        FontSize="14"
+                        Text="• 消息弹窗：模态对话框，显示标题和内容"
+                        TextWrapping="Wrap"
+                        Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                    <TextBlock
+                        FontSize="14"
+                        Text="• 确认对话框：带有确认/取消按钮的对话框"
+                        TextWrapping="Wrap"
+                        Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                    <TextBlock
+                        FontSize="14"
+                        Text="• 输入对话框：带有文本输入框的对话框"
+                        TextWrapping="Wrap"
+                        Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                Classes="Panel">
+                <StackPanel Spacing="15">
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="文件对话框测试"
+                        Foreground="{DynamicResource PrimaryBrush}" />
+                    
+                    <WrapPanel HorizontalAlignment="Left" ItemSpacing="10">
+                        <Button
+                            Width="150"
+                            Command="{Binding OpenFileDialogCommand}"
+                            Content="打开文件" />
+                        <Button
+                            Width="150"
+                            Command="{Binding OpenMultipleFilesDialogCommand}"
+                            Content="选择多个文件" />
+                        <Button
+                            Width="150"
+                            Command="{Binding SaveFileDialogCommand}"
+                            Content="保存文件" />
+                        <Button
+                            Width="150"
+                            Command="{Binding OpenFolderDialogCommand}"
+                            Content="选择文件夹" />
+                    </WrapPanel>
+
+                    <Separator />
+
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Text="文件对话框说明" />
+                    <TextBlock
+                    FontSize="14"
+                    Text="• 打开文件：选择单个文件打开"
+                    TextWrapping="Wrap"
+                    Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 选择多个文件：支持多选文件"
+                    TextWrapping="Wrap"
+                    Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 保存文件：选择保存位置和文件名"
+                    TextWrapping="Wrap"
+                    Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 选择文件夹：选择文件夹路径"
+                    TextWrapping="Wrap"
+                    Foreground="{DynamicResource ForegroundSecondaryBrush}" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

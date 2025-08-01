@@ -1,0 +1,70 @@
+<UserControl x:Class="MyTestApp.Views.WelcomeView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MyTestApp.ViewModels"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+
+    <StackPanel Margin="20">
+        <TextBlock
+            Margin="0,0,0,20"
+            FontSize="24"
+            FontWeight="Bold"
+            Text="欢迎使用 MyTestApp" />
+        <TextBlock
+            Margin="0,0,0,20"
+            FontSize="16"
+            TextWrapping="Wrap">
+            这是一个现代化的桌面应用程序示例，包含完整的菜单系统和主题切换功能。
+        </TextBlock>
+        
+        <Border
+            Margin="0,0,0,20"
+            Classes="Card">
+            <StackPanel>
+                <TextBlock
+                    Margin="0,0,0,10"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Text="功能特性" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 完整的菜单导航系统"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 主题切换功能（亮色/暗色/系统默认）"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 消息弹窗服务"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• Toast消息通知"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 输入对话框"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    FontSize="14"
+                    Text="• 确认对话框"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+
+        <TextBlock
+            Margin="0,0,0,10"
+            FontSize="16"
+            FontWeight="Bold"
+            Text="使用说明" />
+        <TextBlock
+            FontSize="14"
+            Text="点击左侧菜单中的“消息测试”图标来体验消息服务功能。"
+            TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>

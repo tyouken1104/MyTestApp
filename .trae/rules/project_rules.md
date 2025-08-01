@@ -1,0 +1,3 @@
+- 不要运行dotnet run命令
+- 可以运行dotnet clean 以及 dotnet build 命令
+- 请一直保持和我使用中文对话

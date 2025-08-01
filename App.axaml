@@ -1,0 +1,345 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:MyTestApp"
+             xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             x:Class="MyTestApp.App"
+             RequestedThemeVariant="Dark">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- 字体资源 -->
+            <FontFamily x:Key="DefaultFont">avares://MyTestApp/Assets/MapleMonoNL-CN-Regular.ttf#Maple Mono NL CN</FontFamily>
+            
+            <ResourceDictionary.ThemeDictionaries>
+                <!-- 亮色主题 -->
+                <ResourceDictionary x:Key="Light">
+                    <!-- 字体 -->
+                    <FontFamily x:Key="ContentControlThemeFontFamily">{StaticResource DefaultFont}</FontFamily>
+                    <!-- 主色调 -->
+                    <Color x:Key="PrimaryColor">#FF0EA5E9</Color>
+                    <Color x:Key="PrimaryHoverColor">#FF38BDF8</Color>
+                    <Color x:Key="PrimaryPressedColor">#FF0284C7</Color>
+                    
+                    <!-- 背景色 -->
+                    <Color x:Key="BackgroundColor">#FFFEFEFE</Color>
+                    <Color x:Key="SurfaceColor">#FFFFFFFF</Color>
+                    <Color x:Key="SurfaceVariantColor">#FFF8FAFC</Color>
+                    
+                    <!-- 前景色 -->
+                    <Color x:Key="ForegroundColor">#FF0F172A</Color>
+                    <Color x:Key="ForegroundSecondaryColor">#FF475569</Color>
+                    <Color x:Key="ForegroundTertiaryColor">#FF94A3B8</Color>
+                    
+                    <!-- 边框色 -->
+                    <Color x:Key="BorderColor">#FFE2E8F0</Color>
+                    <Color x:Key="BorderVariantColor">#FFCBD5E1</Color>
+                    
+                    <!-- 成功、警告、错误色 -->
+                    <Color x:Key="SuccessColor">#FF10B981</Color>
+                    <Color x:Key="WarningColor">#FFF59E0B</Color>
+                    <Color x:Key="ErrorColor">#FFEF4444</Color>
+                    
+                    <!-- Brushes -->
+                    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+                    <SolidColorBrush x:Key="PrimaryHoverBrush" Color="{StaticResource PrimaryHoverColor}"/>
+                    <SolidColorBrush x:Key="PrimaryPressedBrush" Color="{StaticResource PrimaryPressedColor}"/>
+                    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+                    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
+                    <SolidColorBrush x:Key="SurfaceVariantBrush" Color="{StaticResource SurfaceVariantColor}"/>
+                    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}"/>
+                    <SolidColorBrush x:Key="ForegroundSecondaryBrush" Color="{StaticResource ForegroundSecondaryColor}"/>
+                    <SolidColorBrush x:Key="ForegroundTertiaryBrush" Color="{StaticResource ForegroundTertiaryColor}"/>
+                    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+                    <SolidColorBrush x:Key="BorderVariantBrush" Color="{StaticResource BorderVariantColor}"/>
+                    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+                    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
+                    <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}"/>
+                </ResourceDictionary>
+                
+                <!-- 暗色主题 -->
+                <ResourceDictionary x:Key="Dark">
+                    <!-- 字体 -->
+                    <FontFamily x:Key="ContentControlThemeFontFamily">{StaticResource DefaultFont}</FontFamily>
+                    <!-- 主色调 -->
+                    <Color x:Key="PrimaryColor">#FF8B5CF6</Color>
+                    <Color x:Key="PrimaryHoverColor">#FFA78BFA</Color>
+                    <Color x:Key="PrimaryPressedColor">#FF7C3AED</Color>
+                    
+                    <!-- 背景色 -->
+                    <Color x:Key="BackgroundColor">#FF0F172A</Color>
+                    <Color x:Key="SurfaceColor">#FF1E293B</Color>
+                    <Color x:Key="SurfaceVariantColor">#FF334155</Color>
+                    
+                    <!-- 前景色 -->
+                    <Color x:Key="ForegroundColor">#FFF1F5F9</Color>
+                    <Color x:Key="ForegroundSecondaryColor">#FF94A3B8</Color>
+                    <Color x:Key="ForegroundTertiaryColor">#FF64748B</Color>
+                    
+                    <!-- 边框色 -->
+                    <Color x:Key="BorderColor">#FF334155</Color>
+                    <Color x:Key="BorderVariantColor">#FF475569</Color>
+                    
+                    <!-- 成功、警告、错误色 -->
+                    <Color x:Key="SuccessColor">#FF34D399</Color>
+                    <Color x:Key="WarningColor">#FFFBBF24</Color>
+                    <Color x:Key="ErrorColor">#FFF87171</Color>
+                    
+                    <!-- Brushes -->
+                    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+                    <SolidColorBrush x:Key="PrimaryHoverBrush" Color="{StaticResource PrimaryHoverColor}"/>
+                    <SolidColorBrush x:Key="PrimaryPressedBrush" Color="{StaticResource PrimaryPressedColor}"/>
+                    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+                    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
+                    <SolidColorBrush x:Key="SurfaceVariantBrush" Color="{StaticResource SurfaceVariantColor}"/>
+                    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}"/>
+                    <SolidColorBrush x:Key="ForegroundSecondaryBrush" Color="{StaticResource ForegroundSecondaryColor}"/>
+                    <SolidColorBrush x:Key="ForegroundTertiaryBrush" Color="{StaticResource ForegroundTertiaryColor}"/>
+                    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+                    <SolidColorBrush x:Key="BorderVariantBrush" Color="{StaticResource BorderVariantColor}"/>
+                    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+                    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
+                    <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+        <dialogHost:DialogHostStyles />
+        
+        <!-- 全局字体样式 -->
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+        </Style>
+        <Style Selector="ContentControl">
+            <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource DefaultFont}" />
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="12,8" />
+        </Style>
+        
+        <!-- 现代化按钮样式 -->
+        <Style Selector="Button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="Button:pointerover">
+            <Setter Property="Background" Value="{DynamicResource PrimaryHoverBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHoverBrush}"/>
+            <Setter Property="RenderTransform" Value="scale(1.02)"/>
+        </Style>
+        
+        <Style Selector="Button:pressed">
+            <Setter Property="Background" Value="{DynamicResource PrimaryPressedBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryPressedBrush}"/>
+            <Setter Property="RenderTransform" Value="scale(0.98)"/>
+        </Style>
+        
+        <Style Selector="Button:disabled">
+            <Setter Property="Background" Value="{DynamicResource SurfaceVariantBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundTertiaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="Opacity" Value="0.6"/>
+        </Style>
+        
+        <!-- 次要按钮样式 -->
+        <Style Selector="Button.Secondary">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        
+        <Style Selector="Button.Secondary:pointerover">
+            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        
+        <!-- 危险按钮样式 -->
+        <Style Selector="Button.Danger">
+            <Setter Property="Background" Value="{DynamicResource ErrorBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}"/>
+        </Style>
+        
+        <!-- 成功按钮样式 -->
+        <Style Selector="Button.Success">
+            <Setter Property="Background" Value="{DynamicResource SuccessBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SuccessBrush}"/>
+        </Style>
+        
+        <!-- 警告按钮样式 -->
+        <Style Selector="Button.Warning">
+            <Setter Property="Background" Value="{DynamicResource WarningBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource WarningBrush}"/>
+        </Style>
+        
+        <!-- 图标菜单按钮样式 -->
+        <Style Selector="Button.IconMenuButton">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundSecondaryBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.IconMenuButton:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SurfaceVariantBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
+        </Style>
+        
+        <Style Selector="Button.IconMenuButton.Selected">
+            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        
+        <!-- 子菜单按钮样式 -->
+        <Style Selector="Button.SubMenuButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Margin" Value="8,2"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.SubMenuButton:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SurfaceVariantBrush}"/>
+        </Style>
+        
+        <!-- 标题栏按钮样式 -->
+        <Style Selector="Button.HeaderButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.HeaderButton:pointerover">
+            <Setter Property="Background" Value="rgba(255,255,255,0.1)"/>
+        </Style>
+        
+        <Style Selector="Button.HeaderButton.Close:pointerover">
+            <Setter Property="Background" Value="{DynamicResource ErrorBrush}"/>
+        </Style>
+        
+        <!-- 现代化卡片样式 -->
+        <Style Selector="Border.Card">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="BoxShadow" Value="0 2 8 0 #19000000"/>
+        </Style>
+        
+        <!-- 现代化面板样式 -->
+        <Style Selector="Border.Panel">
+            <Setter Property="Background" Value="{DynamicResource SurfaceVariantBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderVariantBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+        </Style>
+        
+        <!-- 菜单容器样式 -->
+        <Style Selector="Border.MenuContainer">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="0,0,1,0"/>
+        </Style>
+        
+        <!-- 现代化滚动条样式 -->
+        <Style Selector="ScrollViewer">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        
+        <!-- Toast样式增强 -->
+        <Style Selector="Button.ToastButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Effect">
+                <DropShadowEffect BlurRadius="4" Color="#26000000"/>
+            </Setter>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="Button.ToastButton:pointerover">
+            <Setter Property="RenderTransform" Value="translateY(-2px)"/>
+        </Style>
+    </Application.Styles>
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+</Application>
